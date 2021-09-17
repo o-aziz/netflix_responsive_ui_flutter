@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_responisve_ui/screens/screens.dart';
 
 void main() {
   runApp(MyApp());
@@ -15,7 +16,7 @@ class MyApp extends StatelessWidget {
         visualDensity: VisualDensity.adaptivePlatformDensity,
         scaffoldBackgroundColor: Colors.black,
       ),
-      home: Scaffold(),
+      home: HomeScreen(),
     );
   }
 }
