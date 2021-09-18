@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:netflix_responisve_ui/data/data.dart';
+import 'package:netflix_responisve_ui/provider/providers.dart';
 import 'package:netflix_responisve_ui/widgets/widgets.dart';
+
+AppBarOffset appBarOffset = AppBarOffset();
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key key}) : super(key: key);
@@ -10,7 +13,7 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  double _scrollOffset = 0;
+  //double _scrollOffset = 0;
   ScrollController _scrollController;
 
   @override
@@ -20,7 +23,7 @@ class _HomeScreenState extends State<HomeScreen> {
     _scrollController = ScrollController()
       ..addListener(() {
         setState(() {
-          _scrollOffset = _scrollController.offset;
+          appBarOffset.appBarOffset = _scrollController.offset;
         });
       });
   }
@@ -43,9 +46,7 @@ class _HomeScreenState extends State<HomeScreen> {
         child: const Icon(Icons.cast),
       ),
       appBar: PreferredSize(
-        child: CustomAppBar(
-          scrollOffset: _scrollOffset,
-        ),
+        child: CustomAppBar(scrollOffset: appBarOffset.appBarOffset),
         preferredSize: Size(screenSize.width, 50),
       ),
       body: CustomScrollView(
