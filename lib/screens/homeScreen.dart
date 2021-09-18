@@ -36,22 +36,57 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     final Size screenSize = MediaQuery.of(context).size;
     return Scaffold(
-        extendBodyBehindAppBar: true,
-        floatingActionButton: FloatingActionButton(
-          onPressed: () => print('Cast'),
-          backgroundColor: Colors.grey[850],
-          child: const Icon(Icons.cast),
+      extendBodyBehindAppBar: true,
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => print('Cast'),
+        backgroundColor: Colors.grey[850],
+        child: const Icon(Icons.cast),
+      ),
+      appBar: PreferredSize(
+        child: CustomAppBar(
+          scrollOffset: _scrollOffset,
         ),
-        appBar: PreferredSize(
-          child: CustomAppBar(
-            scrollOffset: _scrollOffset,
-          ),
-          preferredSize: Size(screenSize.width, 50),
-        ),
-        body: CustomScrollView(controller: _scrollController, slivers: [
+        preferredSize: Size(screenSize.width, 50),
+      ),
+      body: CustomScrollView(
+        controller: _scrollController,
+        slivers: [
           SliverToBoxAdapter(
             child: ContentHeader(featuredContent: sintelContent),
           ),
-        ]));
+          SliverPadding(
+            padding: const EdgeInsets.only(top: 20),
+            sliver: SliverToBoxAdapter(
+              child: Previews(
+                title: 'Previews',
+                contentList: previews,
+              ),
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: ContentList(
+              title: 'My List',
+              contentList: myList,
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: ContentList(
+              title: 'Netflix Originals',
+              contentList: originals,
+              isOriginals: true,
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.only(bottom: 20),
+            sliver: SliverToBoxAdapter(
+              child: ContentList(
+                title: 'Trending',
+                contentList: trending,
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
   }
 }
