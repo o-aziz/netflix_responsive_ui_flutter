@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:netflix_responisve_ui/widgets/widgets.dart';
 import 'screens.dart';
 
 class NavScreen extends StatefulWidget {
@@ -30,32 +31,33 @@ class _NavScreenState extends State<NavScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: _screens[_currentIndex],
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        type: BottomNavigationBarType.fixed,
-        items: _icons
-            .map(
-              (title, icon) => MapEntry(
-                title,
-                BottomNavigationBarItem(
-                  icon: Icon(
-                    icon,
-                    size: 30,
-                  ),
-                  label: title,
-                ),
-              ),
-            )
-            .values
-            .toList(),
-        currentIndex: _currentIndex,
-        selectedItemColor: Colors.white,
-        unselectedItemColor: Colors.grey,
-        selectedFontSize: 11,
-        unselectedFontSize: 11,
-        onTap: (index) => setState(() => _currentIndex = index),
-      ),
-    );
+        body: _screens[_currentIndex],
+        bottomNavigationBar: !Responsive.isDesktop(context)
+            ? BottomNavigationBar(
+                backgroundColor: Colors.black,
+                type: BottomNavigationBarType.fixed,
+                items: _icons
+                    .map(
+                      (title, icon) => MapEntry(
+                        title,
+                        BottomNavigationBarItem(
+                          icon: Icon(
+                            icon,
+                            size: 30,
+                          ),
+                          label: title,
+                        ),
+                      ),
+                    )
+                    .values
+                    .toList(),
+                currentIndex: _currentIndex,
+                selectedItemColor: Colors.white,
+                unselectedItemColor: Colors.grey,
+                selectedFontSize: 11,
+                unselectedFontSize: 11,
+                onTap: (index) => setState(() => _currentIndex = index),
+              )
+            : const SizedBox.shrink());
   }
 }
